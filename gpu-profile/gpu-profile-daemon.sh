@@ -11,12 +11,12 @@ if ! test -f "$config_path/default.conf"; then
 fi
 
 # Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
-init 3 # Kill X server if already running
-pkill X
-X :0 &
-sleep 5
-export DISPLAY=:0
-sleep 3
+# init 3 # Kill X server if already running
+# pkill X
+# X :0 &
+# sleep 5
+# export DISPLAY=:0
+# sleep 3
 
 # Enable persistence mode
 nvidia-smi -pm 1
