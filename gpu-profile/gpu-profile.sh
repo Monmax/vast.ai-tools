@@ -21,22 +21,22 @@ fi
 if test -f "$config_path"; then
   source $config_path
   echo "Existing values below"
-  echo "CLOCK_SUPPORT=$CLOCK_SUPPORT"
+# echo "CLOCK_SUPPORT=$CLOCK_SUPPORT"
   echo "POWER_LIMIT=$POWER_LIMIT"
   echo "FAN_SPEED=$FAN_SPEED"
-  echo "CLOCK_OFFSET=$CLOCK_OFFSET"
-  echo "MEM_CLOCK_OFFSET=$MEM_CLOCK_OFFSET"
+# echo "CLOCK_OFFSET=$CLOCK_OFFSET"
+# echo "MEM_CLOCK_OFFSET=$MEM_CLOCK_OFFSET"
   echo "To skip and use the saved config press enter for the following"
 fi
 
 mkdir -p "$(dirname $config_path)" && touch "$config_path"
 
-read -p "Enter clocks support (3 for 1000 series, 4 for 2000 series cards): " _clock_support
+# read -p "Enter clocks support (3 for 1000 series, 4 for 2000 series cards): " _clock_support
 read -p "Enter the power limit in watts (e.g. 250): " _power_limit
 read -p "Enter the fan speed or 0 for automatic (e.g. 50): " _fan_speed
-echo "NOTE: The following clock offsets apply half of what would apply in windows. 1000 is a 500mhz offset. "
-read -p "Enter the clock offset (e.g. 200): " _clock_offset
-read -p "Enter the memory offset (e.g. 1000): " _mem_clock_offset
+# echo "NOTE: The following clock offsets apply half of what would apply in windows. 1000 is a 500mhz offset. "
+# read -p "Enter the clock offset (e.g. 200): " _clock_offset
+# read -p "Enter the memory offset (e.g. 1000): " _mem_clock_offset
 
 if ! [ -n "$_clock_support" ]; then
   _clock_support=$CLOCK_SUPPORT
