@@ -11,12 +11,12 @@ if ! test -f "$config_path/default.conf"; then
 fi
 
 # Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
-init 3 # Kill X server if already running
-pkill X
-X :0 &
-sleep 5
-export DISPLAY=:0
-sleep 3
+# init 3 # Kill X server if already running
+# pkill X
+# X :0 &
+# sleep 5
+# export DISPLAY=:0
+# sleep 3
 
 # Enable persistence mode
 nvidia-smi -pm 1
@@ -65,11 +65,11 @@ process_container() {
     nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=0"
   fi
 
-  echo "Setting memory offset: $memory_offset"
-  nvidia-settings -a "[gpu:$gpu_id]/GPUMemoryTransferRateOffset[$CLOCK_COUNT]=$memory_offset"
+#  echo "Setting memory offset: $memory_offset"
+#  nvidia-settings -a "[gpu:$gpu_id]/GPUMemoryTransferRateOffset[$CLOCK_COUNT]=$memory_offset"
 
-  echo "Setting clock offset: $clock_offset"
-  nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_COUNT]=$clock_offset"
+#  echo "Setting clock offset: $clock_offset"
+#  nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_COUNT]=$clock_offset"
 }
 
 
