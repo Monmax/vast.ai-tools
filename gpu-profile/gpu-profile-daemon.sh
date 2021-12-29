@@ -10,6 +10,15 @@ if ! test -f "$config_path/default.conf"; then
   exit
 fi
 
+# Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
+
+# init 3 # Kill X server if already running
+# pkill X
+# X :0 &
+# sleep 5
+# export DISPLAY=:0
+# sleep 3
+
 # Enable persistence mode
 nvidia-smi -pm 1
 
@@ -58,8 +67,12 @@ process_container() {
     nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=0"
   fi
 
-}
+  echo "Setting memory offset: $MEM_CLOCK_OFFSET"
+    nvidia-settings -a [gpu:$gpu_id]/GPUPowerMizerMode=1 -a [gpu:$gpu_id]/GPUMemoryTransferRateOffset[2]=$MEM_CLOCK_OFFSET -a [gpu:$gpu_id]/GPUMemoryTransferRateOffset[3]=$MEM_CLOCK_OFFSET -a [gpu:$gpu_id]/GPUMemoryTransferRateOffset[4]=$MEM_CLOCK_OFFSET
 
+  echo "Setting clock offset: $CLOCK_OFFSET"
+    nvidia-settings -a [gpu:$gpu_id]/GPUGraphicsClockOffset[2]=$CLOCK_OFFSET -a [gpu:$gpu_id]/GPUGraphicsClockOffset[3]=$CLOCK_OFFSET -a [gpu:$gpu_id]/GPUGraphicsClockOffset[4]=$CLOCK_OFFSET
+}
 
 # Apply initial values on startup
 docker ps -q | while read container;
