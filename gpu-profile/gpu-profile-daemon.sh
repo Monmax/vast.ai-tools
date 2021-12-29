@@ -10,14 +10,6 @@ if ! test -f "$config_path/default.conf"; then
   exit
 fi
 
-# Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
-# init 3 # Kill X server if already running
-# pkill X
-# X :0 &
-# sleep 5
-# export DISPLAY=:0
-# sleep 3
-
 # Enable persistence mode
 nvidia-smi -pm 1
 
@@ -37,8 +29,9 @@ process_container() {
   echo "EVENT Status: $status Container: $container_id"
 
   if [ "$gpu_id" = "all" ]; then
-    echo "Skipping as no specific GPU provided"
-    continue
+    $gpu_id="0"
+    echo "GPU ID set to 0"
+#   continue
   fi
 
   echo "Applying settings to GPU: $gpu_id"
@@ -58,18 +51,13 @@ process_container() {
   nvidia-smi -i $gpu_id -pl $POWER_LIMIT # This does not require X. Everything below does.
 
   if [ -n "$FAN_SPEED" ] && [ "$FAN_SPEED" != "0" ]; then
-    echo "Setting target fan speed: $target_fan_speed"
-    nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=1" -a "[fan:$gpu_id]/GPUTargetFanSpeed=$target_fan_speed"
+    echo "Setting target fan speed: $FAN_SPEED"
+    nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=1" -a "[fan:($gpu_id*2)]/GPUTargetFanSpeed=$FAN_SPEED" -a "[fan:($gpu_id*2+1)]/GPUTargetFanSpeed=$FAN_SPEED"
   else
     echo "Setting auto fan speed"
     nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=0"
   fi
 
-#  echo "Setting memory offset: $memory_offset"
-#  nvidia-settings -a "[gpu:$gpu_id]/GPUMemoryTransferRateOffset[$CLOCK_COUNT]=$memory_offset"
-
-#  echo "Setting clock offset: $clock_offset"
-#  nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_COUNT]=$clock_offset"
 }
 
 
