@@ -4,12 +4,12 @@ This script monitors docker container start events and applies GPU settings base
 
 To install it run
 ```bash
-wget -O - https://raw.githubusercontent.com/Monmax/vastai-test/master/gpu-profile/setup.sh | sudo bash
+wget -O - https://raw.githubusercontent.com/Monmax/vast.ai-tools/master/gpu-profile/setup.sh | sudo bash
 ```
 
 To uninstall it run
 ```bash
-wget -O - https://raw.githubusercontent.com/Monmax/vastai-test/master/gpu-profile/setup.sh | sudo bash -s uninstall
+wget -O - https://raw.githubusercontent.com/Monmax/vast.ai-tools/master/gpu-profile/setup.sh | sudo bash -s uninstall
 ```
 
 Set the default config. Run the command again to update certain values.
