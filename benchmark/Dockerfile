@@ -4,7 +4,7 @@ WORKDIR /app
 ARG DEBIAN_FRONTEND=noninteractive
 ARG HASHCAT_VER=6.2.3
 ENV PATH="/app/hashcat-${HASHCAT_VER}:${PATH}"
-ENV SLEEP_TIME="60s"
+ENV SLEEP_TIME="60"
 ENV BENCH_TIME="60"
 
 # Package and dependency setup
