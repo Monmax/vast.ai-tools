@@ -4,12 +4,12 @@ This script monitors docker container start events and applies GPU settings base
 
 To install it run
 ```bash
-wget -O - https://raw.githubusercontent.com/Monmax/vastai-test/master/gpu-profile/setup.sh | sudo bash
+wget -O - https://raw.githubusercontent.com/Monmax/vast.ai-tools/master/gpu-profile/setup.sh | sudo bash
 ```
 
 To uninstall it run
 ```bash
-wget -O - https://raw.githubusercontent.com/Monmax/vastai-test/master/gpu-profile/setup.sh | sudo bash -s uninstall
+wget -O - https://raw.githubusercontent.com/Monmax/vast.ai-tools/master/gpu-profile/setup.sh | sudo bash -s uninstall
 ```
 
 Set the default config. Run the command again to update certain values.
@@ -19,7 +19,7 @@ gpu-profile default
 
 Create config for a specific docker image
 ```bash
-gpu-profile nxie/aio-miner
+gpu-profile zakinco/t-rex:0.24.7
 ```
 
 After setting config the daemon gets restarted and it will apply to your running containers without any downtime. I recommend doing clock and memory changes while unlisted though.
