@@ -22,6 +22,11 @@ Create config for a specific docker image
 gpu-profile zakinco/t-rex:0.24.7
 ```
 
+To run as background process:
+```bash
+/usr/local/bin/gpu-profile-daemon > /var/log/gpu-profile.log 2>&1 &
+```
+
 After setting config the daemon gets restarted and it will apply to your running containers without any downtime. I recommend doing clock and memory changes while unlisted though.
 
 When you first install, it is recommended to reboot and then check the logs at `/var/log/gpu-profile.log` to ensure it can run properly on boot.
