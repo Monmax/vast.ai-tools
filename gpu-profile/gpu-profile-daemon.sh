@@ -18,7 +18,7 @@ fi
 # X :0 &
 # sleep 5
 # export DISPLAY=:0
-# sleep 3
+
 
 # Enable persistence mode
 nvidia-smi -pm 1

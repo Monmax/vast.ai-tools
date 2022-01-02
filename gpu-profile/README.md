@@ -28,7 +28,7 @@ When you first install, it is recommended to reboot and then check the logs at `
 
 ## Issues
 
-nvidia-settings requires an X server for some stupid reason. If you're having issues with clocks not setting this is probably the cause and you'll need to ensure running `X :0` does not show errors other than "already running". If anybody knows a way to overclock without nvidia-settings, please let me know.
+nvidia-settings requires an X server. If you're having issues with clocks not setting this is probably the cause and you'll need to ensure running `X :0` does not show errors other than "already running". If anybody knows a way to overclock without nvidia-settings, please let me know.
 
 If you are just looking to apply different power limits for mining and for renters, then you don't need to worry about X, it should just work, although errors will still be displayed in the logs for the other settings.
 
