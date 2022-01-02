@@ -36,6 +36,11 @@ echo "NOTE: The following clock offsets apply half of what would apply in window
 read -p "Enter the clock offset (e.g. 200): " _clock_offset
 read -p "Enter the memory offset (e.g. 1000): " _mem_clock_offset
 
+if ! [ -n "$_clock_support" ]; then
+  _clock_support=$CLOCK_SUPPORT
+  echo "Using existing clock support"
+fi
+
 if ! [ -n "$_power_limit" ]; then
   _power_limit=$POWER_LIMIT
   echo "Using existing power limit"

@@ -3,6 +3,8 @@
 # Require root
 [ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
 
+xhost local:root
+
 config_path=/etc/gpu-profile/config
 
 if ! test -f "$config_path/default.conf"; then
@@ -10,8 +12,7 @@ if ! test -f "$config_path/default.conf"; then
   exit
 fi
 
-# Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
-
+# Setup X for overclocking. This is messy and might not work on your machine.
 # init 3 # Kill X server if already running
 # pkill X
 # X :0 &
@@ -37,13 +38,17 @@ process_container() {
 
   echo "EVENT Status: $status Container: $container_id"
 
-  if [ "$gpu_id" = "all" ]; then
+#   if [ "$gpu_id" = "all" ]; then
+    numgpu="$(nvidia-smi -L | wc -l)"
     gpu_id="0"
-    echo "GPU ID set to 0"
-#   continue
-  fi
+#   echo "GPU ID set to 0"
+#   else numgpu="$gpu_id"
+# fi
 
   echo "Applying settings to GPU: $gpu_id"
+
+  while [ $gpu_id -lt $numgpu ]
+  do
 
   image_name="$(docker inspect -f '{{ .Config.Image }}' $container_id)"
   container_config_path="$config_path/$image_name.conf"
@@ -68,10 +73,13 @@ process_container() {
   fi
 
   echo "Setting memory offset: $MEM_CLOCK_OFFSET"
-    nvidia-settings -a [gpu:$gpu_id]/GPUPowerMizerMode=1 -a [gpu:$gpu_id]/GPUMemoryTransferRateOffset[2]=$MEM_CLOCK_OFFSET -a [gpu:$gpu_id]/GPUMemoryTransferRateOffset[3]=$MEM_CLOCK_OFFSET -a [gpu:$gpu_id]/GPUMemoryTransferRateOffset[4]=$MEM_CLOCK_OFFSET
+    nvidia-settings -a [gpu:$gpu_id]/GPUPowerMizerMode=1 -a [gpu:$gpu_id]/GPUMemoryTransferRateOffset[4]=$MEM_CLOCK_OFFSET
 
   echo "Setting clock offset: $CLOCK_OFFSET"
-    nvidia-settings -a [gpu:$gpu_id]/GPUGraphicsClockOffset[2]=$CLOCK_OFFSET -a [gpu:$gpu_id]/GPUGraphicsClockOffset[3]=$CLOCK_OFFSET -a [gpu:$gpu_id]/GPUGraphicsClockOffset[4]=$CLOCK_OFFSET
+    nvidia-settings -a [gpu:$gpu_id]/GPUGraphicsClockOffset[4]=$CLOCK_OFFSET
+
+  ((++gpu_id))
+done
 }
 
 # Apply initial values on startup
