@@ -43,8 +43,8 @@ chmod +x $config_maker_path
 
 # Setup cronjob on boot
 # if ! grep -q "$cron_job" "$cron_path"; then
-#  echo "Cronjob doesn't exist. Creating."
-#  (crontab -l; echo "$cron_job") | crontab -
+#   echo "Cronjob doesn't exist. Creating."
+#   (crontab -l; echo "$cron_job") | crontab -
 # fi
 
 echo "Finished setup. To start the daemon, add the default config with 'gpu-profile default'"
